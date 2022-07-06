@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# No need to detect anything. Always detected.
+echo "Create Certificate Files"
+exit 0
