@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir> <env-dir>
+
+### Configure environment
+
+set -o errexit    # always exit on error
+set -o pipefail   # dont ignore exit codes when piping output
+unset GIT_DIR     # Avoid GIT_DIR leak from previous build steps
+
+### Configure directories
+
+mkdir -p $1 $2 $3 # Ensure dirs are present
+
+build_dir=$(cd $1 && pwd)
+cache_dir=$(cd $2 && pwd)
+env_dir=$(cd $3 && pwd)
+
+if [ -f "$env_dir/BUILDPACK_PUBLIC_CERTIFICATE" && -f "$env_dir/BUILDPACK_PRIVATE_CERTIFICATE" ]; then
+  echo "Creating certificate files."
+  "$env_dir/BUILDPACK_PUBLIC_CERTIFICATE" > /etc/ssl/certs/buildpack_public_cert.pem
+  "$env_dir/BUILDPACK_PRIVATE_CERTIFICATE" > /etc/ssl/private/buildpack_private_cert.pem
+else
+  echo "Not creating certificate files."
+fi
