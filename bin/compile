@@ -17,14 +17,14 @@ env_dir=$(cd $3 && pwd)
 
 if [ -f $env_dir/BUILDPACK_PUBLIC_CERTIFICATE ]; then
   echo "Creating public certificate file."
-  $(cat $env_dir/BUILDPACK_PUBLIC_CERTIFICATE) > /app/ssl/certs/buildpack_public_cert.pem
+  $(cat $env_dir/BUILDPACK_PUBLIC_CERTIFICATE) > ~/buildpack_public_cert.pem
 else
   echo "Not creating public certificate file."
 fi
 
 if [ -f $env_dir/BUILDPACK_PRIVATE_CERTIFICATE ]; then
   echo "Creating private certificate file."
-  $(cat $env_dir/BUILDPACK_PRIVATE_CERTIFICATE) > /app/ssl/private/buildpack_private_cert.pem
+  $(cat $env_dir/BUILDPACK_PRIVATE_CERTIFICATE) > ~/buildpack_private_cert.pem
 else
   echo "Not creating private certificate file."
 fi
